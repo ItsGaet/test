@@ -20,7 +20,7 @@ spec:
             - containerPort: 8080 # Porta interna del container
           env:
             - name: OLLAMA_BASE_URL
-              value: "https://localhost:11434" # Variabile d'ambiente configurata
+              value: "https://10.1.0.33:11434" # Variabile d'ambiente configurata
           volumeMounts:
             - name: open-webui-data
               mountPath: /app/backend/data # Mount del volume su /app/backend/data
