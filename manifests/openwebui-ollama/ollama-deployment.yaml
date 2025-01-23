@@ -17,7 +17,7 @@ spec:
         - name: ollama
           image: ollama/ollama:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 11434
           env:
             - name: OLLAMA_MODEL_PATH
               value: "/models"
@@ -26,8 +26,6 @@ spec:
               mountPath: /models
       volumes:
         - name: models
-          emptyDir: {}
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -40,4 +38,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000
+      targetPort: 11434
