@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openwebui
+  namespace: openwebui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openwebui
+  template:
+    metadata:
+      labels:
+        app: openwebui
+    spec:
+      containers:
+        - name: openwebui
+          image: ghcr.io/openwebui/openwebui:latest
+          ports:
+            - containerPort: 7860
+          env:
+            - name: ENV_VAR_1
+              value: "your-value"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openwebui
+  namespace: openwebui
+spec:
+  type: ClusterIP
+  selector:
+    app: openwebui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7860
