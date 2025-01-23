@@ -28,11 +28,10 @@ metadata:
   name: openwebui
   namespace: openwebui
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: openwebui
   ports:
     - protocol: TCP
       port: 80
       targetPort: 7860
-      nodePort: 30001
