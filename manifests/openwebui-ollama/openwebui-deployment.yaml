@@ -1,37 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openwebui
+  name: open-webui
   namespace: openwebui
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openwebui
+      app: open-webui
   template:
     metadata:
       labels:
-        app: openwebui
+        app: open-webui
     spec:
       containers:
-        - name: openwebui
+        - name: open-webui
           image: ghcr.io/open-webui/open-webui:main
           ports:
-            - containerPort: 7860
+            - containerPort: 8080 # Porta interna del container
           env:
-            - name: ENV_VAR_1
-              value: "your-value"
+            - name: OLLAMA_BASE_URL
+              value: "https://10.101.206.144:11434" # Variabile d'ambiente configurata
+          volumeMounts:
+            - name: open-webui-data
+              mountPath: /app/backend/data # Mount del volume su /app/backend/data
+      volumes:
+        - name: open-webui-data
+          emptyDir: {} # Volume di tipo emptyDir
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: openwebui
+  name: open-webui
   namespace: openwebui
 spec:
   type: ClusterIP
   selector:
-    app: openwebui
+    app: open-webui
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 7860
+      port: 3000       # Porta esterna visibile tramite port-forward
+      targetPort: 8080 # Porta interna del container
