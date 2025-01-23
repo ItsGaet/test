@@ -26,16 +26,21 @@ spec:
               mountPath: /models
       volumes:
         - name: models
+          emptyDir: {}
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: ollama
   namespace: openwebui
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: ollama
   ports:
     - protocol: TCP
       port: 80
       targetPort: 11434
+      nodePort: 30002 
