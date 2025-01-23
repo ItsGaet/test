@@ -34,11 +34,10 @@ metadata:
   name: ollama
   namespace: openwebui
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: ollama
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
-      nodePort: 30002
