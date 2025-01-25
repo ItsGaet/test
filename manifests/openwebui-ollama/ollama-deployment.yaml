@@ -24,10 +24,25 @@ spec:
           volumeMounts:
             - name: models
               mountPath: /models
-          command: ["ollama", "run", "llama3.2:1b"]
       volumes:
         - name: models
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: ollama-models-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-models-pvc
+  namespace: openwebui
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
 
 ---
 
