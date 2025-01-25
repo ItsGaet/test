@@ -24,6 +24,7 @@ spec:
           volumeMounts:
             - name: models
               mountPath: /models
+          command: ["ollama", "run", "llama3.2:1b"]
       volumes:
         - name: models
           emptyDir: {}
