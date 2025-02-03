@@ -34,10 +34,12 @@ metadata:
   name: open-webui
   namespace: openwebui
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: open-webui
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
+      nodePort: 30080
+
